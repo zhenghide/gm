@@ -9,7 +9,7 @@ import (
 
 func main() {
 	//读取证书内容
-	certBytes, err := ioutil.ReadFile("static/sm2Ca.crt")
+	certBytes, err := ioutil.ReadFile("static/32.cer")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -28,8 +28,3 @@ func main() {
 	fmt.Println("SignatureAlgorithm", cert.SignatureAlgorithm)
 
 }
-
-
-
-
-

@@ -1,17 +1,17 @@
 package util
 
 import (
+	"bytes"
+	"crypto/ecdsa"
 	"crypto/sm2"
 	"crypto/x509"
-	"fmt"
 	"encoding/pem"
-	"bytes"
 	"errors"
-	"crypto/ecdsa"
+	"fmt"
 )
 
 func PriKeyToPem(sm2PriKey interface{}) (pemPriKey string, err error) {
-	priKeyStream, _ := x509.MarshalECPrivateKey(sm2PriKey.(*ecdsa.PrivateKey))
+	priKeyStream, _ := x509.MarshalSm2PrivateKey(sm2PriKey.(*sm2.PrivateKey))
 	fmt.Println("-----------------SM2私钥字节-----------------")
 	fmt.Println(priKeyStream)
 	fmt.Println("length:", len(priKeyStream))
@@ -48,7 +48,7 @@ func DerKeyToPem(keyBytes []byte) (pemPriKey string, err error) {
 	return pemPriKey, nil
 }
 
-func ECKeyToSM2Key(ecKey ecdsa.PublicKey) sm2.PublicKey{
+func ECKeyToSM2Key(ecKey ecdsa.PublicKey) sm2.PublicKey {
 	sm2PubKey := sm2.PublicKey{
 		Curve: ecKey.Curve,
 		X:     ecKey.X,

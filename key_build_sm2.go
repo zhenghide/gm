@@ -6,32 +6,31 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"io/ioutil"
 	"math/big"
 )
 
-func main()  {
-	//读取内容
-	keyBytes, err := ioutil.ReadFile("static/tmpp.key")
-	if err != nil {
-		fmt.Println(err)
-	}
+func main() {
+	////读取内容
+	//keyBytes, err := ioutil.ReadFile("static/tmpp.key")
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
+	////解码私钥
+	//oldBlock, _ := pem.Decode(keyBytes)
+	//if oldBlock == nil {
+	//	fmt.Println("oldBlock is nil")
+	//}
+	//
+	//fmt.Println("---------------PriKey Bytes---------------")
+	//fmt.Println(oldBlock.Bytes)
+	//fmt.Println("length:", len(oldBlock.Bytes))
+	//
+	//fmt.Println("---------------keyPri32---------------")
+	//keyPri32 := oldBlock.Bytes[7:39]
+	//fmt.Println(keyPri32)
 
-	//解码私钥
-	oldBlock, _ := pem.Decode(keyBytes)
-	if oldBlock == nil {
-		fmt.Println("oldBlock is nil")
-	}
-
-	fmt.Println("---------------PriKey Bytes---------------")
-	fmt.Println(oldBlock.Bytes)
-	fmt.Println("length:", len(oldBlock.Bytes))
-
-	fmt.Println("---------------keyPri32---------------")
-	keyPri32 := oldBlock.Bytes[7:39]
-	fmt.Println(keyPri32)
-
-	//keyPri32 := []byte{7,218,187,199,96,246,42,157,39,251,94,105,64,146,105,65,172,218,132,149,189,164,18,184,139,129,7,89,122,77,176,90}
+	keyPri32 := []byte{183, 31, 95, 193, 135, 127, 167, 93, 50, 143, 120, 97, 136, 217, 106, 168, 32, 166, 19, 253, 186, 53, 132, 16, 23, 121, 66, 250, 185, 36, 203, 38}
 	d := new(big.Int).SetBytes(keyPri32)
 	c := sm2.P256Sm2()
 	priv := new(sm2.PrivateKey)

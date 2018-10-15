@@ -1,4 +1,4 @@
-package util
+package main
 
 import (
 	"bytes"
@@ -7,6 +7,25 @@ import (
 	"errors"
 	"fmt"
 )
+
+func main() {
+	msg := []byte("abcd")
+	key := []byte("123456789abcdefg")
+
+	enMsg, err := SM4Encrypt(key, msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("-----------------SM4加密后密文-----------------")
+	fmt.Println(enMsg)
+	fmt.Println(string(enMsg))
+
+	deMsg, _ := SM4Decrypt(key, enMsg)
+	fmt.Println("-----------------SM4解密后明文-----------------")
+	fmt.Println(deMsg)
+	fmt.Println(string(deMsg))
+
+}
 
 //SM4加密
 func SM4Encrypt(key, origData []byte) ([]byte, error) {
@@ -45,7 +64,7 @@ func PKCS7UnPadding(src []byte) ([]byte, error) {
 	unpadding := int(src[length-1])
 
 	if unpadding > sm4.BlockSize || unpadding == 0 {
-		return nil, errors.New("Invalid pkcs7 padding (unpadding > sm4.BlockSize || unpadding == 0)")
+		return nil, errors.New("Invalid pkcs7 padding (unpadding > aes.BlockSize || unpadding == 0)")
 	}
 
 	pad := src[len(src)-unpadding:]

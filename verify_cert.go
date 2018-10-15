@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"reflect"
-	//x509 "github.com/tjfoc/gmsm/sm2"
 )
 
 func main() {
-	certPath := "/root/test/cert0-cert.pem"
+	//certPath := "/tmp/ca-test/certs/cert0-cert.pem"
+	certPath := "static/hxUser.crt"
 	//读取证书内容
 	certBytes, err1 := ioutil.ReadFile(certPath)
 	if err1 != nil {
@@ -30,7 +30,8 @@ func main() {
 	fmt.Println("Subject:", cert.Subject)
 	fmt.Println("PubKeyType:", reflect.TypeOf(cert.PublicKey))
 
-	caCertPath := "/root/test/root1-cert.pem"
+	//caCertPath := "/tmp/ca-test/ca/root1-cert.pem"
+	caCertPath := "static/hxCa.crt"
 	//读取证书内容
 	caCertBytes, err3 := ioutil.ReadFile(caCertPath)
 	if err1 != nil {
@@ -54,7 +55,7 @@ func main() {
 	if err5 != nil {
 		fmt.Println(err5)
 		panic(err5)
-	}else {
+	} else {
 		fmt.Println("ok")
 	}
 
